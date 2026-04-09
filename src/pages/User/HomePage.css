@@ -1,0 +1,265 @@
+.home-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+/* --- HERO BANNER MỚI --- */
+.home-banner {
+    background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+    min-height: 400px; /* Làm cho banner cao lên để đỡ trống */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 24px;
+    margin-bottom: 40px;
+    padding: 0 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.banner-content {
+    max-width: 800px;
+    width: 100%;
+    z-index: 2;
+}
+
+.home-banner h1 {
+    font-size: 42px;
+    color: #0f172a;
+    margin-bottom: 16px;
+    font-weight: 800;
+}
+
+.home-banner p {
+    font-size: 18px;
+    color: #475569;
+    margin-bottom: 40px;
+}
+
+/* THANH TÌM KIẾM TRONG BANNER */
+.hero-search-bar {
+    display: flex;
+    align-items: center;
+    background: #ffffff;
+    padding: 8px 8px 8px 24px;
+    border-radius: 50px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    transition: transform 0.2s ease;
+}
+
+.hero-search-bar:focus-within {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.search-icon-hero {
+    color: #94a3b8;
+    margin-right: 12px;
+}
+
+.hero-search-bar input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: #0f172a;
+    background: transparent;
+}
+
+.hero-search-bar input::placeholder {
+    color: #94a3b8;
+}
+
+.search-btn {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 40px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.search-btn:hover {
+    background: var(--primary-hover);
+}
+
+/* TAGS CAM KẾT */
+.banner-tags {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    color: #64748b;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.banner-tags .dot {
+    color: #cbd5e1;
+}
+
+/* PHẦN NO PRODUCTS FOUND CẢI TIẾN */
+.no-products-found {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px 20px;
+    background: #f8fafc;
+    border-radius: 16px;
+    border: 2px dashed #e2e8f0;
+}
+
+.no-products-found h3 {
+    color: #0f172a;
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+.loading-spinner {
+  text-align: center;
+  font-size: 18px;
+  color: var(--primary-color);
+  padding: 40px;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 30px;
+}
+.product-card {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+  border: 1px solid #f1f5f9;
+}
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.card-image-wrap {
+  width: 100%;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+  background: #f8fafc;
+}
+.card-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+.product-card:hover .card-image-wrap img {
+  transform: scale(1.05);
+}
+
+.card-content {
+  padding: 20px;
+}
+.card-category {
+  font-size: 12px;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+.card-title {
+  font-size: 16px;
+  color: #0f172a;
+  margin-bottom: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.card-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.card-price {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.add-cart-btn {
+  background: #f1f5f9;
+  border: none;
+  padding: 10px;
+  border-radius: 50%;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.add-cart-btn:hover {
+  background: var(--primary-color);
+  color: #fff;
+}
+
+/* --- CATEGORY FILTER --- */
+.category-filter-section {
+    max-width: 1200px;
+    margin: 0 auto 30px auto;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 0 20px;
+}
+
+.filter-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: #475569;
+}
+
+.filter-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.cat-btn {
+    padding: 8px 16px;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    color: #475569;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.cat-btn:hover {
+    background: #f1f5f9;
+    border-color: #94a3b8;
+}
+
+.cat-btn.active {
+    background: var(--primary-color);
+    color: #ffffff;
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.no-products-found {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    color: #64748b;
+    font-size: 16px;
+    background: #f8fafc;
+    border-radius: 12px;
+}
+
