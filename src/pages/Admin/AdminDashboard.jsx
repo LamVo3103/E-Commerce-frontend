@@ -129,7 +129,7 @@ const AdminDashboard = () => {
 
             <main className="admin-main">
                 <div className="admin-topbar">
-                    <h2>Welcome back, Admin! 👋</h2>
+                    <h2>Welcome back, Admin!</h2>
                     <p>Here is real-time data from your store.</p>
                 </div>
 
@@ -235,15 +235,6 @@ const AdminDashboard = () => {
                                             </td>
                                             <td>
                                                 <div className="action-buttons" style={{ display: 'flex', gap: '8px' }}>
-                                                    {u.role === 'SELLER' && (
-                                                        <button 
-                                                            className="outline-btn stats-btn" 
-                                                            onClick={() => handleViewSellerStats(u.id, u.username)}
-                                                            title="Xem doanh thu Shop này"
-                                                        >
-                                                            <TrendingUp size={16} style={{ marginRight: '4px' }} /> Stats
-                                                        </button>
-                                                    )}
                                                     <button className="icon-btn edit-btn" title={u.isActive ? "Khóa tài khoản" : "Mở khóa"}>
                                                         <Lock size={18}/>
                                                     </button>

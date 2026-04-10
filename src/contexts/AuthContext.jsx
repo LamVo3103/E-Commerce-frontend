@@ -4,16 +4,15 @@ import { jwtDecode } from 'jwt-decode';
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    // Lấy token từ localStorage nếu có (giúp F5 không bị văng ra ngoài)
     const [token, setToken] = useState(localStorage.getItem('accessToken') || null);
     const [userRole, setUserRole] = useState(null);
 
     useEffect(() => {
         if (token) {
             try {
-                // Giải mã token để lấy role (dựa theo backend của bạn)
                 const decoded = jwtDecode(token);
-                setUserRole(decoded.role); 
+                // Đề phòng backend trả về 'role' hoặc 'roles'
+                setUserRole(decoded.role || decoded.roles || null); 
                 localStorage.setItem('accessToken', token);
             } catch (error) {
                 console.error("Invalid token:", error);
@@ -31,7 +30,8 @@ export const AuthProvider = ({ children }) => {
 
     const logout = () => {
         setToken(null);
-        // Có thể gọi thêm API logout của Backend ở đây nếu cần xóa Cookie
+        setUserRole(null); // Xóa quyền ngay lập tức khi đăng xuất
+        localStorage.removeItem('accessToken');
     };
 
     return (
@@ -41,5 +41,4 @@ export const AuthProvider = ({ children }) => {
     );
 };
 
-// Custom hook để gọi cho lẹ
 export const useAuth = () => useContext(AuthContext);
