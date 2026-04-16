@@ -321,3 +321,48 @@
   -webkit-appearance: none;
   margin: 0;
 }
+
+/* --- CSS CHO ẢNH PHỤ SẢN PHẨM --- */
+.product-image-gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.main-image-wrapper img {
+    width: 100%;
+    border-radius: 12px;
+    object-fit: cover;
+    aspect-ratio: 1/1;
+    border: 1px solid #f1f5f9;
+}
+
+.thumbnail-list {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto; /* Lướt ngang nếu có nhiều ảnh */
+    padding-bottom: 8px;
+}
+
+.thumbnail-item {
+    width: 70px;
+    height: 70px;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    overflow: hidden;
+    opacity: 0.6;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.thumbnail-item:hover, .thumbnail-item.active {
+    opacity: 1;
+    border-color: #6366f1; /* Viền tím khi được chọn */
+}
+
+.thumbnail-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

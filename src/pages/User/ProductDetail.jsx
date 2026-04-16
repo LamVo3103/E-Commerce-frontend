@@ -16,13 +16,14 @@ const ProductDetail = () => {
     
     const product = location.state?.product;
 
+    // === STATE MỚI: LƯU ẢNH CHÍNH ĐANG HIỂN THỊ ===
+    const [mainImage, setMainImage] = useState('');
+
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
     const [rating, setRating] = useState(5); 
     const [hoverRating, setHoverRating] = useState(0); 
     const [isSubmitting, setIsSubmitting] = useState(false);
-    
-    // === THÊM STATE CHO SỐ LƯỢNG MUA ===
     const [quantity, setQuantity] = useState(1);
 
     useEffect(() => {
@@ -31,6 +32,12 @@ const ProductDetail = () => {
             return;
         }
         fetchComments();
+        // Gán ảnh đầu tiên làm ảnh mặc định khi vừa vào trang
+        if (product.img && product.img.length > 0) {
+            setMainImage(product.img[0]);
+        } else {
+            setMainImage('https://via.placeholder.com/400');
+        }
     }, [product]);
 
     const fetchComments = async () => {
@@ -75,7 +82,6 @@ const ProductDetail = () => {
         }
     };
 
-    // === HÀM XỬ LÝ TĂNG GIẢM SỐ LƯỢNG ===
     const handleDecrease = () => {
         if (quantity > 1) setQuantity(quantity - 1);
     };
@@ -84,7 +90,6 @@ const ProductDetail = () => {
         if (quantity < product.stock) setQuantity(quantity + 1);
     };
 
-    // === TÍNH TOÁN SỐ SAO TRUNG BÌNH ===
     const averageRating = comments.length > 0 
         ? (comments.reduce((sum, cmt) => sum + (cmt.rating || 5), 0) / comments.length).toFixed(1)
         : 0;
@@ -98,13 +103,32 @@ const ProductDetail = () => {
             </button>
 
             <div className="product-main-info">
+                {/* === KHU VỰC HIỂN THỊ ẢNH (ĐÃ SỬA) === */}
                 <div className="product-image-gallery">
-                    <img src={product.img && product.img.length > 0 ? product.img[0] : 'https://via.placeholder.com/400'} alt={product.name} />
+                    {/* Ảnh to ở trên */}
+                    <div className="main-image-wrapper">
+                        <img src={mainImage} alt={product.name} />
+                    </div>
+                    
+                    {/* Hàng ảnh nhỏ ở dưới (Chỉ hiện khi có từ 2 ảnh trở lên) */}
+                    {product.img && product.img.length > 1 && (
+                        <div className="thumbnail-list">
+                            {product.img.map((image, index) => (
+                                <div 
+                                    key={index} 
+                                    className={`thumbnail-item ${mainImage === image ? 'active' : ''}`}
+                                    onMouseEnter={() => setMainImage(image)} // Hover vào là đổi ảnh luôn cho mượt
+                                >
+                                    <img src={image} alt={`${product.name} thumbnail ${index + 1}`} />
+                                </div>
+                            ))}
+                        </div>
+                    )}
                 </div>
+
                 <div className="product-details">
                     <h1>{product.name}</h1>
                     
-                    {/* === HIỂN THỊ SỐ SAO TRUNG BÌNH === */}
                     <div className="product-rating-summary">
                         {comments.length > 0 ? (
                             <>
@@ -128,7 +152,6 @@ const ProductDetail = () => {
                     </div>
                     <div className="product-price">{product.sellPrice.toLocaleString()} đ</div>
                     
-                    {/* === KHU VỰC CHỌN SỐ LƯỢNG === */}
                     <div className="quantity-section">
                         <span className="qty-label">Số lượng:</span>
                         <div className="qty-controls">
@@ -140,7 +163,6 @@ const ProductDetail = () => {
 
                     <button 
                         className="add-to-cart-large"
-                        // Cập nhật hàm gọi giỏ hàng với đúng số lượng đã chọn
                         onClick={() => { addToCart(product, quantity); alert(`Đã thêm ${quantity} sản phẩm vào giỏ hàng!`); }}
                         disabled={product.stock <= 0}
                     >
@@ -149,7 +171,6 @@ const ProductDetail = () => {
                 </div>
             </div>
 
-            {/* KHU VỰC ĐÁNH GIÁ KẾ TẾP BÊN DƯỚI (Giữ nguyên) */}
             <div className="review-section">
                 <h2>Đánh giá sản phẩm</h2>
 
