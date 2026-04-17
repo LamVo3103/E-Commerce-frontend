@@ -6,7 +6,7 @@ const createApiClient = (token) => axios.create({
     headers: { 'Authorization': `Bearer ${token}` }
 });
 
-// Admin lấy danh sách User (BE cần làm thêm API này)
+// 1. Admin lấy danh sách User
 export const getAllUsers = async (token) => {
     try {
         const response = await createApiClient(token).get('/api/admin/users');
@@ -17,7 +17,18 @@ export const getAllUsers = async (token) => {
     }
 };
 
-// Lấy thống kê (Thêm sellerId nếu Admin muốn xem của shop khác)
+// 2. Admin Khóa / Mở khóa tài khoản
+export const toggleUserStatus = async (token, userId) => {
+    try {
+        // Gọi API cập nhật trạng thái User (Gửi cho BE làm endpoint này)
+        const response = await createApiClient(token).put(`/api/admin/users/${userId}/toggle-status`);
+        return response.data;
+    } catch (error) {
+        throw error.response?.data?.message || 'Lỗi khi cập nhật trạng thái User';
+    }
+};
+
+// 3. Lấy thống kê (Thêm sellerId nếu Admin muốn xem của shop khác)
 export const getMonthlyStats = async (token, sellerId = '') => {
     try {
         const url = sellerId ? `/api/statistic/month?sellerId=${sellerId}` : `/api/statistic/month`;
