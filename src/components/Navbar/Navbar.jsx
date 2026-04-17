@@ -52,8 +52,6 @@ const Navbar = () => {
                             {token && userRole === 'USER' && (
                                 <Link to="/profile" className="nav-item">Theo dõi đơn hàng</Link>
                             )}
-                            <Link to="/products" className="nav-item">Products</Link>
-                            <Link to="/about" className="nav-item">About</Link>
                         </>
                     )}
                 </div>

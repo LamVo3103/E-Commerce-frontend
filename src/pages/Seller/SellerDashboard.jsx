@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import { getCurrentUser } from '../../services/userService';
 import { getSellerProducts, createProduct, uploadProductImages, deleteProduct, updateProduct } from '../../services/productService';
 import { getSellerOrders, cancelOrder } from '../../services/orderService';
-// === IMPORT THÊM getTopProducts ===
 import { getMonthlyProfit, getTopProducts } from '../../services/statisticService';
 import './SellerDashboard.css';
 
@@ -78,7 +77,7 @@ const SellerDashboard = () => {
                 total: profitData.total || 0,
                 orders: profitData.order?.length || 0
             });
-            setTopProducts(productsData || []); // Gán dữ liệu vào bảng xếp hạng
+            setTopProducts(productsData || []); 
         } catch (error) {
             console.error("Lỗi tải thống kê:", error);
         } finally {
@@ -90,7 +89,6 @@ const SellerDashboard = () => {
         if (token) fetchSellerData();
     }, [token]);
 
-    // Gọi API thống kê khi chuyển sang tab Statistics
     useEffect(() => {
         if (activeTab === 'statistics') {
             fetchStatsData();
@@ -192,41 +190,40 @@ const SellerDashboard = () => {
     return (
         <div className="seller-layout">
             <aside className="seller-sidebar">
-                <div className="sidebar-header"><h3>Seller Center</h3></div>
+                <div className="sidebar-header"><h3>Quản lý cửa hàng</h3></div>
                 <nav className="sidebar-nav">
                     <button className={`nav-btn ${activeTab === 'my_products' ? 'active' : ''}`} onClick={() => { setEditingProduct(null); handleTabChange('my_products'); }}>
-                        <Package size={20} /> My Products
+                        <Package size={20} /> Các sản phẩm
                     </button>
                     <button className={`nav-btn ${activeTab === 'add_product' && !editingProduct ? 'active' : ''}`} onClick={() => { setEditingProduct(null); handleTabChange('add_product'); }}>
-                        <PlusCircle size={20} /> Add Product
+                        <PlusCircle size={20} /> Thêm sản phẩm
                     </button>
                     <button className={`nav-btn ${activeTab === 'orders' ? 'active' : ''}`} onClick={() => handleTabChange('orders')}>
-                        <ClipboardList size={20} /> Order Management
+                        <ClipboardList size={20} /> Quản lý đơn hàng
                     </button>
                     <button className={`nav-btn ${activeTab === 'statistics' ? 'active' : ''}`} onClick={() => handleTabChange('statistics')}>
-                        <TrendingUp size={20} /> Statistics & Revenue
+                        <TrendingUp size={20} /> Thống kê doanh thu
                     </button>
                 </nav>
                 <div className="sidebar-footer">
                     <button className="nav-btn logout-btn" onClick={handleLogout}>
-                        <LogOut size={20} /> Logout
+                        <LogOut size={20} /> Đăng xuất
                     </button>
                 </div>
             </aside>
 
             <main className="seller-main">
                 <div className="seller-topbar">
-                    <h2>Store Management</h2>
-                    <p>Manage your products, track orders, and grow your business.</p>
+                    <h2>Quản lý cửa hàng</h2>
                 </div>
 
                 {/* TAB 1: MY PRODUCTS */}
                 {activeTab === 'my_products' && (
                     <div className="dashboard-content">
                         <div className="content-header">
-                            <h3>Product List ({products.length})</h3>
+                            <h3>Các sản phẩm ({products.length})</h3>
                             <button className="primary-btn" onClick={() => { setEditingProduct(null); handleTabChange('add_product'); }}>
-                                <PlusCircle size={18} /> New Product
+                                <PlusCircle size={18} /> Thêm sản phẩm
                             </button>
                         </div>
 
@@ -235,19 +232,19 @@ const SellerDashboard = () => {
                         ) : products.length === 0 ? (
                             <div className="empty-state">
                                 <Package size={48} color="#cbd5e1" style={{marginBottom: '16px'}}/>
-                                <p>You haven't listed any products yet.</p>
-                                <button className="outline-btn" onClick={() => { setEditingProduct(null); handleTabChange('add_product'); }}>Start Selling</button>
+                                <p>Bạn chưa đăng sản phẩm nào.</p>
+                                <button className="outline-btn" onClick={() => { setEditingProduct(null); handleTabChange('add_product'); }}>Bắt đầu bán hàng</button>
                             </div>
                         ) : (
                             <div className="table-responsive">
                                 <motion.table className="custom-table" variants={tableVariants} initial="hidden" animate="show">
                                     <thead>
                                         <tr>
-                                            <th>Image</th>
-                                            <th>Product Name</th>
-                                            <th>Price</th>
-                                            <th>Stock</th>
-                                            <th>Actions</th>
+                                            <th>Ảnh</th>
+                                            <th>Tên sản phẩm</th>
+                                            <th>Giá</th>
+                                            <th>Kho</th>
+                                            <th>Hành động</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -513,7 +510,6 @@ const SellerDashboard = () => {
                                                                 </span>
                                                             </td>
                                                             <td className="price-cell">
-                                                                {/* Tính doanh thu dựa trên giá bán * số lượng (Nếu có trả về sellPrice) */}
                                                                 {product.sellPrice 
                                                                     ? (product.sellPrice * product.totalSold).toLocaleString() + ' đ' 
                                                                     : 'Đang tính toán...'}

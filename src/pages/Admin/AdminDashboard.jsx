@@ -55,7 +55,6 @@ const AdminDashboard = () => {
         }
     }, [token, activeTab]);
 
-    // Load data giả lập cho tab User (Chờ BE có API)
     useEffect(() => {
         if (activeTab === 'users') {
             // Data giả lập để test UI
@@ -88,9 +87,9 @@ const AdminDashboard = () => {
     };
 
     const statsData = [
-        { id: 1, title: "Monthly Revenue", value: `${monthlyTotal.toLocaleString()} đ`, icon: DollarSign, color: "var(--success-color)" },
-        { id: 2, title: "Orders this Month", value: orderCount.toString(), icon: ShoppingBag, color: "var(--primary-color)" },
-        { id: 3, title: "Total Users", value: users.length > 0 ? users.length.toString() : "N/A", icon: Users, color: "#f59e0b" }, 
+        { id: 1, title: "Doanh thu tháng này", value: `${monthlyTotal.toLocaleString()} đ`, icon: DollarSign, color: "var(--success-color)" },
+        { id: 2, title: "Đơn hàng tháng này", value: orderCount.toString(), icon: ShoppingBag, color: "var(--primary-color)" },
+        { id: 3, title: "Tổng số người dùng", value: users.length > 0 ? users.length.toString() : "N/A", icon: Users, color: "#f59e0b" }, 
     ];
 
     const containerVariants = {
@@ -111,18 +110,18 @@ const AdminDashboard = () => {
                 </div>
                 <nav className="sidebar-nav">
                     <button className={`nav-btn ${activeTab === 'overview' ? 'active' : ''}`} onClick={() => setActiveTab('overview')}>
-                        <LayoutDashboard size={20} /> Overview
+                        <LayoutDashboard size={20} /> Tổng quan
                     </button>
                     <button className={`nav-btn ${activeTab === 'users' ? 'active' : ''}`} onClick={() => setActiveTab('users')}>
-                        <Users size={20} /> Manage Users
+                        <Users size={20} /> Quản lý Người dùng
                     </button>
                     <button className={`nav-btn ${activeTab === 'settings' ? 'active' : ''}`} onClick={() => setActiveTab('settings')}>
-                        <Settings size={20} /> Settings
+                        <Settings size={20} /> Cài đặt
                     </button>
                 </nav>
                 <div className="sidebar-footer">
                     <button className="nav-btn logout-btn" onClick={handleLogout}>
-                        <LogOut size={20} /> Logout
+                        <LogOut size={20} /> Đăng xuất
                     </button>
                 </div>
             </aside>
@@ -130,7 +129,6 @@ const AdminDashboard = () => {
             <main className="admin-main">
                 <div className="admin-topbar">
                     <h2>Welcome back, Admin!</h2>
-                    <p>Here is real-time data from your store.</p>
                 </div>
 
                 {/* --- TAB OVERVIEW --- */}
@@ -159,13 +157,13 @@ const AdminDashboard = () => {
 
                                 <motion.div className="recent-section" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.5 }}>
                                     <div className="recent-header">
-                                        <h3>Top Selling Products</h3>
+                                        <h3>Sản phẩm bán chạy nhất</h3>
                                     </div>
                                     
                                     {topProducts.length === 0 ? (
                                         <div className="empty-state">
                                             <Package size={48} color="#cbd5e1" style={{marginBottom: '16px'}}/>
-                                            <p>No products sold yet. The chart will appear once orders are completed!</p>
+                                            <p>Chưa có sản phẩm nào được bán.</p>
                                         </div>
                                     ) : (
                                         <div className="table-responsive">
